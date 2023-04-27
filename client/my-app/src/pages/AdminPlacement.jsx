@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+// import { useHistory } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css'
+import { Link } from 'react-router-dom';
 
-const Placement = () => {
+const AdminPlacement = () => {
     const [students, getStudents] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
     const [filteredStudents, setFilteredStudents] = useState([])
+    // const history = useHistory()
     const [selectedYear, setSelectedYear] = useState(2021);
 
 
@@ -20,40 +23,6 @@ const Placement = () => {
             });
     }, []);
 
-    // useEffect(() => {
-    //     // if (students.length > 0) {
-    //     const filteredStudentsByYear = students.filter(student => {
-    //         return student.year === selectedYear;
-    //     });
-    //     const filteredStudentsByCompany = filteredStudentsByYear.filter(student => {
-    //         return student.company.toLowerCase().includes(searchTerm.toLowerCase());
-    //     });
-    //     setFilteredStudents(filteredStudentsByCompany)
-    //     // }
-    // }, [students, selectedYear, searchTerm])
-
-    // const handleSearch = () => {
-    //     const filteredStudentsByYear = students.filter(student => {
-    //         return student.year === selectedYear;
-    //     });
-    //     const filteredStudentsByCompany = filteredStudentsByYear.filter(student => {
-    //         return student.company.toLowerCase().includes(searchTerm.toLowerCase());
-    //     });
-    //     setFilteredStudents(filteredStudentsByCompany)
-    // }
-
-    // const handleYearChange = (event) => {
-    //     setSelectedYear(event.target.value);
-    // }
-
-    // const yearOptions = () => {
-    //     const years = students.map(student => student.year)
-    //     const uniqueYears = [...new Set(years)]
-    //     return uniqueYears.map(year => (
-    //         <option value={year} key={year}>{year}</option>
-    //     ))
-    // }
-
     // const handleSearch = () => {
     //     const newfilteredStudents = students.filter(student => {
     //         return student.company.toLowerCase().includes(searchTerm.toLowerCase());
@@ -61,24 +30,37 @@ const Placement = () => {
     //     setFilteredStudents(newfilteredStudents)
     // }
 
+    // const handleUpdate = (student, history) => {
+    // navigate to the update page for the selected student
+    // you can use the student ID or any other identifier to construct the URL for the update page
+    // window.location.href = `/admin/placement/${student.rid}/update`; // example URL format
+    // history.push(`/admin/placement/${student.rid}/update`)
+    // const url = `/admin/placement/update?rid=${student.rid}&username=${student.username}`;
+    // history.push(url);
+
+    // set the selected student in state
+    // setSelectedStudent(student);
+    // // navigate to the update page
+    // history.push(`/admin/placement/${student.rid}/update`);
+
+    // }
 
 
-    // const filterStudentsByYear = (students) => {
-    //     return students.filter(student => {
+    // const filteredStudentsByYear = (students) =>{
+    //     return students.filter(student =>{
     //         return student.year === selectedYear;
     //     })
     // }
 
-    // const handleSearchYear = () => {
-    //     if (searchTerm === '') {
+    // const handleSearchYear = () =>{
+    //     if (searchTerm === ''){
     //         const filteredStudentsByYear = filterStudentsByYear(students);
     //         setFilteredStudents(filteredStudentsByYear);
     //     } else {
-    //         const filteredStudentsByYear = filterStudentsByYear(students);
-    //         const newfilteredStudents = filteredStudentsByYear.filter(student => {
-    //             return student.company.toLowerCase().includes(searchTerm.toLowerCase());
+    //         const newfilteredStudents = students.filter(student = >{
+    //             return student.co
     //         })
-    //         setFilteredStudents(newfilteredStudents);
+    //     }
     //     }
     // }
 
@@ -116,15 +98,9 @@ const Placement = () => {
         return filteredStudentsByYear;
     }
 
-
     return (
-
+        // <React.Fragment>
         <div>
-            {/* <input type="text" placeholder='Search' onChange={e => setSearchTerm(e.target.value)} />
-            <button onClick={handleSearch}>Search</button>
-            <input type="number" placeholder='Year' onChange={e => setSearchTerm(e.target.value)} />
-            <button onClick={handleSearchYear}>Search</button> */}
-
             <div>
                 <label htmlFor="year">Year:</label>
                 <select id="year" value={selectedYear} onChange={handleYearChange}>
@@ -135,6 +111,12 @@ const Placement = () => {
                 <input type="text" placeholder='Search by company name' onChange={e => setSearchTerm(e.target.value)} />
                 <button onClick={handleSearch}>Search</button>
             </div>
+            <Link to={`/add`}>Add new Placement Details</Link>
+            <Link to={`/update`}>Update</Link>
+            {/* <input type="text" placeholder='Search' onChange={e => setSearchTerm(e.target.value)} />
+                <button onClick={handleSearch}>Search</button> */}
+            {/* <input type="number" placeholder='Year' onChange={e => setSearchTerm(e.target.value)} />
+            <button onClick={handleSearchYear}>Search</button> */}
             <h1>Student List</h1>
             <table class="table table-border">
                 <thead>
@@ -144,29 +126,10 @@ const Placement = () => {
                         <th>Company</th>
                         <th>Salary</th>
                         <th>Year</th>
+                        <th>Update</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {/* {searchTerm === '' ? (
-                        students.map(student => (
-                            <tr key={student.rid}>
-                                <td>{student.rid}</td>
-                                <td>{student.username}</td>
-                                <td>{student.company}</td>
-                                <td>{student.salary}</td>
-                                <td>{student.year}</td>
-                            </tr>
-                        ))
-                    ) : (
-                        filteredStudents.map(student => (
-                            <tr key={student.rid}>
-                                <td>{student.rid}</td>
-                                <td>{student.username}</td>
-                                <td>{student.company}</td>
-                                <td>{student.salary}</td>
-                            </tr>
-                        )))} */}
-
                     {filteredStudents.map(student => (
                         <tr key={student.rid}>
                             <td>{student.rid}</td>
@@ -174,22 +137,27 @@ const Placement = () => {
                             <td>{student.company}</td>
                             <td>{student.salary}</td>
                             <td>{student.year}</td>
+                            <Link to={`/update/${student.rid}`} className='btn btn-sm btn-info'>Edit</Link>
+                            <Link to={`/placement/delete/${student.rid}`} className='btn btn-sm btn-info'>Delete</Link>
+                            {/* <button className='btn btn-sm btn-danger' onClick={() => {
+                                if (window.confirm("Are you sure you want to delete this row?")) {
+                                    // Perform deletion
+                                    axios.delete(`http://localhost:8000/api/students/placement/delete/${student.rid}`)
+                                        .then(response => {
+                                            // Remove deleted row from state
+                                            const updatedStudents = students.filter(s => s.rid !== student.rid);
+                                            getStudents(updatedStudents);
+                                            console.log(response.data);
+                                        });
+                                }
+                            }}>Delete</button> */}
                         </tr>
                     ))}
                 </tbody>
             </table>
         </div>
-        // <div>
-        //     <h1>Placement Data</h1>
-        //     <ul>
-        //         {students.map(item => (
-        //             <li key={item.id}>
-        //                 {item.name} - {item.placement}
-        //             </li>
-        //         ))}
-        //     </ul>
-        // </div>
+        // </React.Fragment>
     );
 }
 
-export default Placement;
+export default AdminPlacement;

@@ -2,13 +2,12 @@ import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import { AuthContext } from '../context/authContext';
 import Logo from "../img/logo.png"
-// import Placement from '../pages/Placement'
 
-const Navbar = () => {
-
+const AdminNavbar = () => {
     const { currentUser, logout } = useContext(AuthContext);
 
     return (
+
         <div className='navbar'>
             <div className="container">
                 <div className="logo">
@@ -17,27 +16,27 @@ const Navbar = () => {
                     </Link>
                 </div>
                 <div className="links">
-                    <Link className='link' to="/home">
+                    <Link className='link' to="/adminHome">
                         <h6>Home</h6>
                     </Link>
-                    <Link className='link' to="/placement">
+                    <Link className='link' to="/adminPlacement">
                         <h6>Placement</h6>
                     </Link>
-                    <Link className='link' to="/internship">
+                    <Link className='link' to="/adminInternship">
                         <h6>Internship</h6>
                     </Link>
                     <Link className='link' to="/">
-                    <span>{currentUser?.username}</span>
-                    {currentUser ? (
-                        <span onClick={logout}>Logout</span>
-                        
-                    ) : (
-                        <Link className="link" to="/">
-                            Login
-                        </Link>
-                    )}
+                        <span>{currentUser?.username}</span>
+                        {currentUser ? (
+                            <span onClick={logout}>Logout</span>
+
+                        ) : (
+                            <Link className="link" to="/">
+                                Login
+                            </Link>
+                        )}
                     </Link>
-                   
+
                     {/* <span className='write'>
                         <Link to="/write">Write</Link>
                     </span> */}
@@ -47,4 +46,4 @@ const Navbar = () => {
     )
 }
 
-export default Navbar
+export default AdminNavbar
