@@ -23,7 +23,7 @@ const SinglePlaceEdit = () => {
                     company: res.data.Result[0].company,
                     designation: res.data.Result[0].designation,
                     salary: res.data.Result[0].salary,
-                    loi: res.data.Result[0].loi,
+                    loi: null,
                 })
             })
             .catch(err => console.log(err))
@@ -44,7 +44,7 @@ const SinglePlaceEdit = () => {
     }
     return (
         <div className='d-flex flex-column align-items-center pt-3'>
-            <h2>Update Student</h2>
+            <h2>Update Placement Details</h2>
             <form className='row g-3 w-50' onSubmit={handleSubmit}>
                 <div className='col-12'>
                     <label for='inputRegister' className='form-label'>Register No</label>
@@ -69,8 +69,8 @@ const SinglePlaceEdit = () => {
                 </div>
                 <div className='col-12'>
                     <label for='inputLOI' className='form-label'>Letter of Intent</label>
-                    <input type="text" className='form-control' placeholder='Letter of Intent' id="inputLOI" autoComplete='off'
-                        onChange={e => setDate({ ...data, loi: e.target.value })} value={data.loi} />
+                    <input type="file" className='form-control' placeholder='Letter of Intent' id="inputLOI" autoComplete='off'
+                        onChange={e => setDate({ ...data, loi: e.target.files[0] })} value={data.loi} />
                 </div>
                 <div className='col-12'>
                     <button type='submit' className='btn btn-primary'>Update</button>

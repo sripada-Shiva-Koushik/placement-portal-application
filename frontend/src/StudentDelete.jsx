@@ -33,9 +33,8 @@ const StudentDelete = () => {
         navigate(`/selectEdit/${id}`)
     }
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        axios.delete('http://localhost:8080/delete/' + id, data)
+    const handleSubmit = (id) => {
+        axios.delete('http://localhost:8080/delete/' + id)
             .then(res => {
                 if (res.data.Status === "Success") {
                     navigate('/placement')
@@ -76,7 +75,7 @@ const StudentDelete = () => {
                         onChange={e => setDate({ ...data, dept: e.target.value })} value={data.dept} disabled />
                 </div>
                 <div className='col-12'>
-                    <button type='submit' className='btn btn-primary'>Delete</button>
+                    <button onClick={e => handleSubmit(data.regNo)} className='btn btn-primary'>Delete</button>
                 </div>
                 {/* <div>
                     <Link to={`/placementEdit/${id}`} className='btn btn-primary'>Placement</Link>

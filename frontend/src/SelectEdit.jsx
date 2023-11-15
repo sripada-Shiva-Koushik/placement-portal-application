@@ -28,17 +28,17 @@ const SelectEdit = () => {
             .catch(err => console.log(err))
     }, [])
 
-    const handleDelete = (id) => {
-        axios.delete('http://localhost:8080/singePDelete/' + id)
-            .then(res => {
-                if (res.data.Status === 'Success') {
-                    setData(res.data.Result);
-                    window.location.reload(true);
-                } else {
-                    alert("Error")
-                }
-            })
-    }
+    // const handleDelete = (id) => {
+    //     axios.delete('http://localhost:8080/singePDelete/' + id)
+    //         .then(res => {
+    //             if (res.data.Status === 'Success') {
+    //                 setData(res.data.Result);
+    //                 window.location.reload(true);
+    //             } else {
+    //                 alert("Error")
+    //             }
+    //         })
+    // }
     return (
         <div>
             <table className='table'>

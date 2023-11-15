@@ -23,18 +23,19 @@ const SinglePlaceDelete = () => {
                     company: res.data.Result[0].company,
                     designation: res.data.Result[0].designation,
                     salary: res.data.Result[0].salary,
-                    loi: res.data.Result[0].loi,
+                    loi: null,
                 })
             })
             .catch(err => console.log(err))
     }, [])
 
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        axios.delete('http://localhost:8080/singlePDelete/' + id + '/' + company, data)
+    const handleSubmit = (id, company) => {
+        axios.delete('http://localhost:8080/singlePDelete/' + id + '/' + company)
+            // axios.delete(`http://localhost:8080/singlePDelete/${id}/${company}`, { data: data })
             .then(res => {
                 if (res.data.Status === "Success") {
+                    console.log(data);
                     navigate('/placement')
                     alert("Successfully Deleted")
                 }
@@ -44,7 +45,7 @@ const SinglePlaceDelete = () => {
     }
     return (
         <div className='d-flex flex-column align-items-center pt-3'>
-            <h2>Delete Student</h2>
+            <h2>Delete Placement Details</h2>
             <form className='row g-3 w-50' onSubmit={handleSubmit}>
                 <div className='col-12'>
                     <label for='inputRegister' className='form-label'>Register No</label>
@@ -69,11 +70,10 @@ const SinglePlaceDelete = () => {
                 </div>
                 <div className='col-12'>
                     <label for='inputLOI' className='form-label'>Letter of Intent</label>
-                    <input type="text" className='form-control' placeholder='Letter of Intent' id="inputLOI" autoComplete='off'
-                        onChange={e => setDate({ ...data, loi: e.target.value })} value={data.loi} disabled />
+                    <input type="file" className='form-control' placeholder='Letter of Intent' id="inputLOI" autoComplete='off' disabled />
                 </div>
                 <div className='col-12'>
-                    <button type='submit' className='btn btn-primary'>Delete</button>
+                    <button onClick={e => { () => handleSubmit(id, company) }} className='btn btn-primary'>Delete</button>
                 </div>
                 {/* <div>
                     <Link to={`/placementEdit/${id}`} className='btn btn-primary'>Placement</Link>

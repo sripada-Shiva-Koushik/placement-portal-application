@@ -8,7 +8,8 @@ const EditStudent = () => {
         regNo: '',
         email: '',
         year: '',
-        dept: ''
+        dept: '',
+        image: '',
     })
 
     const navigate = useNavigate()
@@ -57,7 +58,7 @@ const EditStudent = () => {
                 <div className='col-12'>
                     <label for='inputRegister' className='form-label'>Register No</label>
                     <input type="text" className='form-control' placeholder='Enter Register' id="inputRegister" autoComplete='off'
-                        onChange={e => setDate({ ...data, regNo: e.target.value })} value={data.regNo} disabled />
+                        onChange={e => setDate({ ...data, regNo: e.target.value })} value={data.regNo} />
                 </div>
                 <div className='col-12'>
                     <label for='inputEmail4' className='form-label'>Email</label>
@@ -74,6 +75,11 @@ const EditStudent = () => {
                     <label for='inputDept' className='form-label'>Department</label>
                     <input type="text" className='form-control' placeholder='Enter Department' id="inputDept" autoComplete='off'
                         onChange={e => setDate({ ...data, dept: e.target.value })} value={data.dept} />
+                </div>
+                <div className='col-12'>
+                    <label for='inputImage' className='form-label'>Image</label>
+                    <input type="file" className='form-control' placeholder='Image' id="inputImage" autoComplete='off'
+                        onChange={e => setDate({ ...data, image: e.target.value })} />
                 </div>
                 <div className='col-12'>
                     <button type='submit' className='btn btn-primary'>Update</button>

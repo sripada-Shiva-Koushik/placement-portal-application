@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 
 const AddStudent = () => {
@@ -10,10 +10,29 @@ const AddStudent = () => {
         password: '',
         year: '',
         dept: '',
-        image: ''
+        image: null
     })
 
+    const [years, setYears] = useState([]);
+    const [departments, setDepartments] = useState([]);
+
     const navigate = useNavigate()
+
+    useEffect(() => {
+        fetchDropdownValues();
+    }, []);
+
+    const fetchDropdownValues = async () => {
+        try {
+            const yearsResponse = await axios.get('http://localhost:8080/getYears');
+            const departmentsResponse = await axios.get('http://localhost:8080/getDepartments');
+
+            setYears(yearsResponse.data);
+            setDepartments(departmentsResponse.data);
+        } catch (error) {
+            console.error('Error fetching dropdown values:', error);
+        }
+    };
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -56,12 +75,35 @@ const AddStudent = () => {
                     <input type="password" className='form-control' placeholder='Enter Password' id="inputPassword" autoComplete='off' onChange={e => setDate({ ...data, password: e.target.value })} />
                 </div>
                 <div className='col-12'>
-                    <label for='Year' className='form-label'>Year</label>
-                    <input type="number" className='form-control' placeholder='Enter Year' id="inputYear" autoComplete='off' onChange={e => setDate({ ...data, year: e.target.value })} />
+                    <label htmlFor='inputYear' className='form-label'>Year</label>
+                    <select
+                        className='form-select'
+                        id='inputYear'
+                        onChange={(e) => setData({ ...data, year: e.target.value })}
+                    >
+                        <option value=''>Select Year</option>
+                        {years.map((year, index) => (
+                            <option key={index} value={year}>
+                                {year}
+                            </option>
+                        ))}
+                    </select>
                 </div>
+
                 <div className='col-12'>
-                    <label for='inputDept' className='form-label'>Department</label>
-                    <input type="text" className='form-control' placeholder='Enter Department' id="inputDept" autoComplete='off' onChange={e => setDate({ ...data, dept: e.target.value })} />
+                    <label htmlFor='inputDept' className='form-label'>Department</label>
+                    <select
+                        className='form-select'
+                        id='inputDept'
+                        onChange={(e) => setData({ ...data, dept: e.target.value })}
+                    >
+                        <option value=''>Select Department</option>
+                        {departments.map((department, index) => (
+                            <option key={index} value={department}>
+                                {department}
+                            </option>
+                        ))}
+                    </select>
                 </div>
                 <div className='col-12 mb-3'>
                     <label for='inputGroupFile01' className='form-label'>Select Image</label>

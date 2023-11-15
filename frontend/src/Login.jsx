@@ -31,25 +31,39 @@ const Login = () => {
     }
 
     return (
-        <div className='d-flex justify-content-center align-items-center vh-100 loginPage'>
-            <div className='bg-white p-3 rounded w-25 border loginForm' >
-                <div className='text-danger'>
-                    {error && error}
+        <div className='login-box'>
+            <h2>Log in</h2>
+            <form onSubmit={handleSubmit}>
+                <div className='user-box'>
+                    <input
+                        type='email'
+                        name='email'
+                        required
+                        value={values.email}
+                        onChange={(e) => setValues({ ...values, email: e.target.value })}
+                    />
+                    <label>Email</label>
                 </div>
-                <h2>Login</h2>
-                <form onSubmit={handleSubmit}>
-                    <div className='mb-3'>
-                        <label htmlFor="email"><strong>Email</strong></label>
-                        <input type="email" placeholder='Enter Email' name='email' className='form-control rounded-0'
-                            onChange={e => setValues({ ...values, email: e.target.value })} />
-                    </div>
-                    <div className='mb-3'>
-                        <label htmlFor="password"><strong>Password</strong></label>
-                        <input type="password" placeholder='Enter Password' name='password' className='form-control rounded-0'
-                            onChange={e => setValues({ ...values, password: e.target.value })} />
-                    </div>
-                    <button type='submit' className='btn btn-success w-100 rounded-0'> Log In </button>
-                </form>
+                <div className='user-box'>
+                    <input
+                        type='password'
+                        name='password'
+                        required
+                        value={values.password}
+                        onChange={(e) => setValues({ ...values, password: e.target.value })}
+                    />
+                    <label>Password</label>
+                </div>
+                <button type='submit'>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    Log in
+                </button>
+            </form>
+            <div className='text-danger'>
+                {error && error}
             </div>
         </div>
     )
